@@ -1,5 +1,4 @@
 package logic;
-//package abstractBank;
 
 public class CurrentAccount extends Account {
 	private static double overdraft = 5000;
