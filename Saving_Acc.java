@@ -1,27 +1,60 @@
 package logic;
+//package abstractBank;
 
-public class Saving_Acc  extends Account
-{
-	//Attributes
-	private double Interest_Rate;
-	//parameterized constructor
-	public Saving_Acc(String AccNo, String AccOwN,double IR) {
-		super(AccNo, AccOwN);
-		this.Interest_Rate = IR;
+public class SavingAccount extends Account{
+	private static double interestRate = 0.03;
+
+	public SavingAccount(double balance,String name) {
+		super(balance,name);
+		
 	}
-	// Methods
-	public void getInterest()
-	{
-		super.deposite(getAccBalance()*Interest_Rate/100);
+	
+
+	public SavingAccount(int accNo) {
+		super(accNo);
+		// TODO Auto-generated constructor stub
 	}
-	public static void main(String[] args) {
-		Saving_Acc Sav_Acc_Holder1 = new Saving_Acc("22222",
-	   			"Raja Ram Mohanroi", 9.0);
-		Sav_Acc_Holder1.deposite(5000);
-	   	System.out.println("Balance Before Interest: " + Sav_Acc_Holder1.getAccBalance());
 
-	   	Sav_Acc_Holder1.getInterest();
-	   	System.out.println("Balance After Interest: " + Sav_Acc_Holder1.getAccBalance());
-	   }
+	@Override
+	public boolean withdraw(double amt) {
+	
+		double checkBalance = this.getBalance() - amt;	
+		if(checkBalance >= 500)
+		{
+			this.setBalance(checkBalance);
+			return true;
+		}
+		else
+		{
+			
+			System.out.println("Withdrawal of ammount = "+amt+" is not allowed. " +
+					"you can withdraw maximum " +
+					""+(this.getBalance()-500));
+			return false;
+		}
+	}
 
+	@Override
+	public void deposit(double amt) {
+		
+		double checkBalance = this.getBalance() + amt;
+		this.setBalance(checkBalance);
+			
+		
+
+	}
+
+	@Override
+	public void transfer(double amt, Account toAccount) {
+
+		if(this.withdraw(amt) == true)
+		{
+			toAccount.deposit(amt);	
+		}
+		else
+		{
+			System.out.println("Transfer is not possible");
+		}
+
+	}
 }
