@@ -1,69 +1,66 @@
 package logic;
+public abstract class Account {
+	private static int allotNumber = 0 ;
+	private int accNo;
+	private double balance;
+	private String name;
+	// constructor
+	
+	public Account(double balance,String name) {
+		super();
+		this.name = name;
+		this.balance = balance;
+		this.accNo = ++allotNumber;
+	}
+	
 
-public class Account 
-{
-	//Attributes
-	//using encapsulation so make Fields private
-	private String AccNumber;
-	private String AccOwenerName;
-	private double AccBalance;
-	//parameterized constructor
-	public Account(String AccNo,String AccOwN)
+
+	public Account(int accNo) {
+		super();
+		this.accNo = accNo;
+	}
+
+
+	public int getAccNo() {
+		return accNo;
+	}
+
+
+
+
+	protected void setAccNo(int accNo) {
+		this.accNo = accNo;
+	}
+
+
+
+
+	public double getBalance() {
+		return balance;
+	}
+
+	protected void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	
+
+
+	public String getName() {
+		return name;
+	}
+
+	public String toString()
 	{
-		this.AccNumber= AccNo;
-		this.AccOwenerName = AccOwN;
-		this.AccBalance=0;           //Innitially set balance= 0
-	}
-	//getters
-	public String getAccNumber() {
-		return AccNumber;
-	}
-	public String getAccOwenerName() {
-		return AccOwenerName;
-	}
-	public double getAccBalance() {
-		return AccBalance;
-	}
-	//Methods Encapsulaton: making methods public
-	public boolean deposite(double Amount)
-	{
-		if(Amount>0)
-		{
-			this.AccBalance = this.AccBalance+Amount;
-			return true;
-		}
-		else
-		{
-			System.out.println("Please Enter valid Amount");
-			return false;
-		}
-	}
-	public boolean withdraw(double Amount)
-	{
-		int minBalance = 500;
-		if((this.AccBalance-Amount)>minBalance)   //condition for min balance
-		{
-			this.AccBalance= this.AccBalance-Amount;
-			return true;
-		}
-		else
-		{
-			System.out.println("You don't have sufficient Ammount to withdraw");
-			return false;
-		}
+		
+		
+		return "Account number : "+this.getAccNo()+"\nAccount holder name : "+this.getName()+"\nAccount balance :"
+				+ " "+this.getBalance();
+		
 	}
 
-	   public static void main(String[] args) {
-		   	Account Holder1 = new Account("111111", "Rameshwari Uddhav Joshi");
-
-		   	System.out.println(Holder1.getAccBalance()); //0
-		   	Holder1.deposite(5000);
-
-		   	System.out.println("Balance is: " + Holder1.getAccBalance()); // 5000
-
-		   	Holder1.withdraw(500);
-
-		   	System.out.println("Balance is: " + Holder1.getAccBalance()); // 4500
-		   }
+	//abstract method
+	public abstract boolean withdraw(double amt);
+	public abstract void deposit(double amt);
+	public abstract void transfer(double amt,Account toAccount);
 }
-
